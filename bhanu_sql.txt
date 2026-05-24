@@ -1,0 +1,90 @@
+Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.4.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database irctc
+    -> ^C
+mysql> create database irctc;
+Query OK, 1 row affected (0.20 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| hospital           |
+| information_schema |
+| irctc              |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.12 sec)
+
+mysql> use irctc;
+Database changed
+mysql> create table train_data (train_no int, train_name varchar(255), src varchar(255), dest varchar(255), time varchar(255));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc train_data;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| train_no   | int          | YES  |     | NULL    |       |
+| train_name | varchar(255) | YES  |     | NULL    |       |
+| src        | varchar(255) | YES  |     | NULL    |       |
+| dest       | varchar(255) | YES  |     | NULL    |       |
+| time       | varchar(255) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> insert into train_data (train_no, train_name, src, dest, time) values (12619, 'Matsyagandha Express
+    '> ^C
+mysql> insert into train_data (train_no, train_name, src, dest, time) values (12619, "Matsyagandha Express", "LTT", "Mangaluru", "15:20");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from train_data;
++----------+----------------------+------+-----------+-------+
+| train_no | train_name           | src  | dest      | time  |
++----------+----------------------+------+-----------+-------+
+|    12619 | Matsyagandha Express | LTT  | Mangaluru | 15:20 |
++----------+----------------------+------+-----------+-------+
+1 row in set (0.01 sec)
+
+mysql> insert into train_data (train_no, train_name, src, dest, time) values (11019, "Konark Express", "CSMT", "Samalkot", "16:10");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from train_data;
++----------+----------------------+------+-----------+-------+
+| train_no | train_name           | src  | dest      | time  |
++----------+----------------------+------+-----------+-------+
+|    12619 | Matsyagandha Express | LTT  | Mangaluru | 15:20 |
+|    11019 | Konark Express       | CSMT | Samalkot  | 16:10 |
++----------+----------------------+------+-----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE train_data ADD PRIMARY KEY (train_no);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into train_data (train_no, train_name, src, dest, time) values (11019, "Bhanu Express", "CSMT", "Samalkot", "16:10");
+ERROR 1062 (23000): Duplicate entry '11019' for key 'train_data.PRIMARY'
+mysql> select * from train_data;
++----------+----------------------+------+-----------+-------+
+| train_no | train_name           | src  | dest      | time  |
++----------+----------------------+------+-----------+-------+
+|    11019 | Konark Express       | CSMT | Samalkot  | 16:10 |
+|    12619 | Matsyagandha Express | LTT  | Mangaluru | 15:20 |
++----------+----------------------+------+-----------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+
