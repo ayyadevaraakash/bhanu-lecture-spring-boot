@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -12,18 +14,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.irctc.dto.TrainNameDto;
 import com.tcs.irctc.entity.TrainEntity;
 import com.tcs.irctc.repository.TrainRepository;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 @RestController
 @RequestMapping("/api")
+@Profile("prod")
 public class TrainController {
 	
 	@Autowired
 	private TrainRepository repo;
+	
+	@Value("${api.password}")
+	private int systemPassword;
 	
 	@PatchMapping("/train")
 	public String updateCell(@RequestBody TrainNameDto outside) {
@@ -53,9 +63,14 @@ public class TrainController {
 	}
 
 	@GetMapping("/train")
-	public List<TrainEntity> getAllTrains() {
-		List<TrainEntity> ans = repo.findAll();
-		return ans;
+	public List<TrainEntity> getAllTrains(@RequestParam("keys") int num) {
+		List<TrainEntity> ans = null;
+		if (num == systemPassword) {
+			ans = repo.findAll();
+			return ans; 
+		} else {
+			return ans;
+		}
 	}
 	
 	@PostMapping("/train")

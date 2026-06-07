@@ -9,5 +9,4 @@ public class IrctcApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(IrctcApplication.class, args);
 	}
-
 }
