@@ -1,0 +1,12 @@
+200 OK
+201 Created -> If some data has been created in DB
+204 No content -> API is correct but data is not present in db
+400 Bad Request -> JSON coming from frontend is wrong in format
+401 Unauthorized -> User is logged in successfully but he is trying to access a resource which is not allowed to him
+403 Forbidden -> User is not able to prove his identity, login issue
+404 not found -> API endpoint is wrong, or no controller is there to handle this endpoint
+405 Method not found -> GET /api/teachers    POST /api/teachers
+500 Internal Server Error -> some issue in backend
+502 Bad Gateway -> some network issue
+503 Service Unavailable -> server is down or heavy load on server
+504 Gateway timeout -> server did not respond in time

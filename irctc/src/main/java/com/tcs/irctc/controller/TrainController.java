@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tcs.irctc.dto.ResponseDto;
 import com.tcs.irctc.dto.TrainNameDto;
 import com.tcs.irctc.entity.TrainEntity;
 import com.tcs.irctc.repository.TrainRepository;
-
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 @RestController
 @RequestMapping("/api")
@@ -63,14 +62,17 @@ public class TrainController {
 	}
 
 	@GetMapping("/train")
-	public List<TrainEntity> getAllTrains(@RequestParam("keys") int num) {
-		List<TrainEntity> ans = null;
-		if (num == systemPassword) {
-			ans = repo.findAll();
-			return ans; 
-		} else {
-			return ans;
-		}
+	public ResponseEntity<?> getAllTrains() {
+		List<TrainEntity> ans = repo.findAll();
+		
+		ResponseDto response = new ResponseDto();
+		
+		response.setMessage("DATA FOUND");
+		response.setData(ans);
+		
+		int a = 5/0;
+		
+		return ResponseEntity.ok(response);
 	}
 	
 	@PostMapping("/train")
