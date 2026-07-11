@@ -31,9 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-.metadata/
-*.class
-
-mvnw
-mvnw.cmd
-maven-wrapper.properties
